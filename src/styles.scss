@@ -1,0 +1,33 @@
+@import 'variables';
+@import 'montserrat-font';
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  line-height: 23px;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  color: $text-color;
+  text-decoration: none;
+  &:visited {
+    color: $text-color;
+  }
+  &:hover {
+    color: $text-color;
+  }
+  &:active {
+    color: $text-color;
+  }
+}
+.mr-10 {
+  margin-right: 10px;
+}

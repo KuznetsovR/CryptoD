@@ -1,0 +1,5 @@
+<div class="wallet-info" *ngIf="wallet; else noWalletFound">
+  <div class="wallet-name">Wallet: {{ wallet.address }}</div>
+  <div class="wallet-total-balance">Total balance: {{ wallet.totalBalanceInFiat }}</div>
+</div>
+<ng-template #noWalletFound> You did not import wallet with this address </ng-template>

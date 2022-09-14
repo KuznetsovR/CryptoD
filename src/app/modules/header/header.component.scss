@@ -1,0 +1,19 @@
+@import 'src/variables';
+@import 'src/mixins';
+
+.header {
+  background: $dark-blue;
+  height: 55px;
+  color: white;
+}
+.header-inner-container {
+  max-width: $content-max-width;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    @include white-link;
+  }
+}

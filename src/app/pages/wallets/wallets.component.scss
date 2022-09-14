@@ -1,0 +1,33 @@
+@import 'src/styles/page-with-nav-menu';
+@import 'src/variables';
+.content-container {
+  flex-grow: 1;
+}
+.import-wallet-container {
+  display: flex;
+  justify-content: end;
+}
+.wallet {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  background: $blue;
+  color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  &__total-balance-label {
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 20px;
+    color: $light-gray;
+  }
+  &__total-balance-value {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 6px 0;
+  }
+  &__address {
+    align-self: center;
+  }
+}

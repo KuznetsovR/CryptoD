@@ -1,0 +1,22 @@
+@import 'src/variables';
+@import 'src/mixins';
+.nav-menu {
+  border-left: 1px solid #667eea;
+  background-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-image-slice: 1;
+  margin-right: 20px;
+}
+.nav-menu-items {
+  padding: 0 10px;
+  background: white;
+}
+.nav-menu-item {
+  padding: 10px 10px 10px 20px;
+  border-radius: 10px;
+  width: 200px;
+  display: block;
+  &.nav-menu-item-active {
+    background: $blue;
+    @include white-link;
+  }
+}
