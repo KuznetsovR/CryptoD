@@ -35,7 +35,7 @@ export class CoingeckoService {
     );
   }
   getCoinMarketChart(
-    tokenSymbol: keyof typeof CoingeckoCoins, // symbol is object key
+    tokenSymbol: string, // symbol is object key
     vs_currency: string = 'usd',
     days: number = 30,
     interval = 'daily'

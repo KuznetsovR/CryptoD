@@ -1,4 +1,4 @@
-export const CoingeckoCoins = {
+export const CoingeckoCoins: {[key: string]: string} = {
   zoc: '01coin',
   algohalf: '0-5x-long-algorand-token',
   althalf: '0-5x-long-altcoin-index-token',
