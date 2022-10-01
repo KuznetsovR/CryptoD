@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { CoingeckoCoins } from './coingeckoCoins';
 
 /**
  * Service for all interactions with Coingecko API
@@ -9,7 +10,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CoingeckoService {
-  pathToCoingeckoApi = 'https://api.coingecko.com/api/v3';
+  private pathToCoingeckoApi = 'https://api.coingecko.com/api/v3';
   supportedCurrencies: string[] = [];
   constructor(private http: HttpClient) {}
 
@@ -18,7 +19,7 @@ export class CoingeckoService {
   }
   /**
    * Gets currencies for future requests to coingecko
-   * it doesn't need reload parameter because currencies list does not change
+   * it doesn't need reload parameter because currencies list does not change,
    * and you just need to get it in the ngOnInit
    */
   private getSupportedCurrencies() {
@@ -33,9 +34,15 @@ export class CoingeckoService {
       })
     );
   }
-  getCoinMarketChart(id: string, vs_currency: string, days: number, interval = 'daily'): Observable<CoingeckoMarketChart> {
-    const params = new HttpParams().set('id', id).set('vs_currency', vs_currency).set('days', days).set('interval', interval);
-    return this.http.get<CoingeckoMarketChart>(`${this.pathToCoingeckoApi}/coins/${id}/market_chart`, { params });
+  getCoinMarketChart(
+    tokenSymbol: keyof typeof CoingeckoCoins, // symbol is object key
+    vs_currency: string = 'usd',
+    days: number = 30,
+    interval = 'daily'
+  ): Observable<CoingeckoMarketChart> {
+    const coinGeckoId = CoingeckoCoins[tokenSymbol];
+    const params = new HttpParams().set('vs_currency', vs_currency).set('days', days).set('interval', interval);
+    return this.http.get<CoingeckoMarketChart>(`${this.pathToCoingeckoApi}/coins/${coinGeckoId}/market_chart`, { params });
   }
 }
 

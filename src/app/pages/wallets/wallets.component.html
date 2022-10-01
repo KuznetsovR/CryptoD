@@ -5,16 +5,16 @@
       <app-button (click)="importWallet()" class="mr-10">+ Import wallet</app-button>
       <input type="text" [(ngModel)]="walletAddressToImport" />
     </div>
-    <div class="wallets-list">
+    <ul class="wallets-list">
       <ng-container *ngFor="let wallet of wallets">
         <ng-container *ngTemplateOutlet="walletListItem; context: { $implicit: wallet }"></ng-container>
       </ng-container>
-    </div>
+    </ul>
   </div>
 </div>
 
 <ng-template #walletListItem let-wallet>
-  <div class="wallet" [routerLink]="wallet.address">
+  <li class="wallet" [routerLink]="wallet.address">
     <div class="wallet__total-balance">
       <div class="wallet__total-balance-label">Total balance:</div>
       <div class="wallet__total-balance-value">
@@ -24,5 +24,5 @@
     <div class="wallet__address">
       {{ wallet.address | truncateMiddle: 25 }}
     </div>
-  </div>
+  </li>
 </ng-template>

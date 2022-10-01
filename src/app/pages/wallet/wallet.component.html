@@ -1,5 +1,13 @@
 <div class="wallet-info" *ngIf="wallet; else noWalletFound">
   <div class="wallet-name">Wallet: {{ wallet.address }}</div>
   <div class="wallet-total-balance">Total balance: {{ wallet.totalBalanceInFiat }}</div>
+  <ul class="token-list">
+    <li *ngFor="let token of wallet.tokenList">
+      <img [src]="token.images.small" alt="token" />
+      {{ token.name | titlecase }} ({{ token.symbol | uppercase }})
+      {{ token.balance }}
+      {{ token.priceInFiat }}
+    </li>
+  </ul>
 </div>
 <ng-template #noWalletFound> You did not import wallet with this address </ng-template>

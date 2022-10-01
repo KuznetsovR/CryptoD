@@ -75,3 +75,6 @@ export class UserWallet {
 export interface UserToken extends Token {
   balance: number;
 }
+export class TokenMarketChart {
+
+}
