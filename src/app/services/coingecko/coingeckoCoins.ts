@@ -65,7 +65,6 @@ export const CoingeckoCoins: {[key: string]: string} = {
   'realt-s-14825-wilfried-st-detroit-mi': '14825-wilfred',
   'realt-s-14882-troester-st-detroit-mi': '14882-troester',
   'realt-s-15039-ward-ave-detroit-mi': '15039-ward',
-  'realt-s-15048-freeland-st-detroit-mi': '15048-freeland',
   'realt-s-15095-hartwell-st-detroit-mi': '15095-hartwell',
   'realt-s-15350-greydale-st-detroit-mi': '15350-greydale',
   'realt-s-15373-parkside-st-detroit-mi': '15373-parkside',
