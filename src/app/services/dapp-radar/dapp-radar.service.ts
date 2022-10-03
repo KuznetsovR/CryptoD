@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import DappRadarToken = dappRadar.DappRadarToken;
-import { firstValueFrom } from 'rxjs';
-
+import * as _ from 'lodash';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,11 +10,11 @@ export class DappRadarService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * if collection is empty, returns false, otherwise true
+   */
   async getTokenList(reload = false): Promise<TokenCollection> {
-    if (!reload) {
-      if (!this._tokenCollection) {
-        this._tokenCollection = await firstValueFrom(this.http.get<TokenCollection>('../../../assets/tokens.json'));
-      }
+    if (!reload && _.isEmpty(this._tokenCollection)) {
       return this._tokenCollection;
     }
     const maxPageSize = 25;
@@ -29,40 +28,46 @@ export class DappRadarService {
       .set('Currency', 'usd');
     return new Promise((resolve, reject) => {
       this.http
-        .get<{ resultCount: number; pageCount: number; results: DappRadarToken[] }>(
-          'https://prices-api-public.dappradar.com/v1/token-explorer/tokens',
-          {
-            params,
-          }
-        )
-        .subscribe((res: { resultCount: number; pageCount: number; results: DappRadarToken[] }) => {
+        .get<dappRadar.tokenListResponse>('https://prices-api-public.dappradar.com/v1/token-explorer/tokens', {
+          params,
+        })
+        .subscribe((res: dappRadar.tokenListResponse) => {
           for (const token of res.results) {
             this._tokenCollection[token.symbol] = new Token(token);
           }
-          let importedPagesAmount = 1;
-          for (let i = 2; i <= res.pageCount; i++) {
-            const req = this.http.get<{ resultCount: number; pageCount: number; results: DappRadarToken[] }>(
-              'https://prices-api-public.dappradar.com/v1/token-explorer/tokens',
-              {
-                params: params.set('Page', i),
-              }
-            );
-            req.subscribe((res: { resultCount: number; pageCount: number; results: DappRadarToken[] }) => {
-              importedPagesAmount++;
-              for (const token of res.results) {
-                this._tokenCollection[token.symbol] = new Token(token);
-              }
-              if (importedPagesAmount === res.pageCount) {
-                resolve(this._tokenCollection);
-              }
-            });
-          }
+          this.getTokenListPagesFromSecondPage(res, resolve, params);
         });
     });
+  }
+  getTokenListPagesFromSecondPage(firstResponse: dappRadar.tokenListResponse, resolve: Function, params: HttpParams) {
+    for (let i = 2; i <= firstResponse.pageCount; i++) {
+      this.getTokenListPage(resolve, params, i);
+    }
+  }
+
+  getTokenListPage(resolve: Function, params: HttpParams, pageIdx: number) {
+    this.http
+      .get<dappRadar.tokenListResponse>('https://prices-api-public.dappradar.com/v1/token-explorer/tokens', {
+        params: params.set('Page', pageIdx),
+      })
+      .subscribe((res: dappRadar.tokenListResponse) => {
+        for (const token of res.results) {
+          this._tokenCollection[token.symbol] = new Token(token);
+        }
+        if (res.page === res.pageCount) {
+          resolve(this._tokenCollection);
+        }
+      });
   }
 }
 
 declare module dappRadar {
+  export interface tokenListResponse {
+    resultCount: number;
+    page: number;
+    pageCount: number;
+    results: DappRadarToken[];
+  }
   export interface PriceInFiatChange {
     percentage: string;
     valueDate: Date;

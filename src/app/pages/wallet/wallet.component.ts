@@ -16,6 +16,5 @@ export class WalletComponent implements OnInit {
     this.wallet = this.userService.currentUser.wallets.find(
       (wallet) => wallet.address === this.route.snapshot.paramMap.get('walletAddress')
     );
-    console.log(this.wallet);
   }
 }
