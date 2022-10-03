@@ -4,8 +4,8 @@ import { NgModule, Pipe, PipeTransform } from '@angular/core';
   name: 'money',
 })
 export class MoneyPipe implements PipeTransform {
-  transform(value: number, currencySymbol: string = '$'): string {
-    return `${currencySymbol}${value.toFixed(2)}`;
+  transform(value: number, numberOfDecimals = 2, currencySymbol: string = '$'): string {
+    return `${currencySymbol}${value.toFixed(numberOfDecimals)}`;
   }
 }
 
