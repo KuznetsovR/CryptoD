@@ -8,6 +8,16 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'real-estate',
+    pathMatch: 'full',
+    loadChildren: () => import('./pages/real-estate/real-estate.module').then((m) => m.RealEstateModule),
+  },
+  {
+    path: 'stock-market',
+    pathMatch: 'full',
+    loadChildren: () => import('./pages/stock-market/stock-market.module').then((m) => m.StockMarketModule),
+  },
+  {
     path: 'total',
     pathMatch: 'full',
     loadChildren: () => import('./pages/total/total.module').then((m) => m.TotalModule),

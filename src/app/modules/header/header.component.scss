@@ -5,6 +5,7 @@
   background: $dark-blue;
   height: 55px;
   color: white;
+  padding: 0 20px;
 }
 .header-inner-container {
   max-width: $content-max-width;
@@ -16,4 +17,8 @@
   a {
     @include white-link;
   }
+}
+.links-list {
+  display: flex;
+  gap: 25px ;
 }
