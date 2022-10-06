@@ -51,6 +51,9 @@ export class UserService {
 
 export class User {
   wallets: UserWallet[];
+  get totalBalance() {
+    return this.wallets.reduce((acc, wallet) => acc + wallet.totalBalanceInFiat, 0)
+  }
   constructor(item?: Partial<User>) {
     this.wallets = item?.wallets?.length ? item?.wallets.map((w) => new UserWallet(w)) : [];
   }

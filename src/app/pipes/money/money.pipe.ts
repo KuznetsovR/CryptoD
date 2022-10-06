@@ -4,8 +4,17 @@ import { NgModule, Pipe, PipeTransform } from '@angular/core';
   name: 'money',
 })
 export class MoneyPipe implements PipeTransform {
+  formatMoney(value: number, numberOfDecimals: number) {
+    const toFixedValueArr = value.toFixed(numberOfDecimals).split('')
+    // 4 is 3 digits + comma symbol
+    for (let i = toFixedValueArr.length - numberOfDecimals - 4; i > 0; i-=3){
+      toFixedValueArr.splice(i, 0 , ' ')
+    }
+    return toFixedValueArr.join('')
+  }
   transform(value: number, numberOfDecimals = 2, currencySymbol: string = '$'): string {
-    return `${currencySymbol}${value.toFixed(numberOfDecimals)}`;
+    const formattedValue = this.formatMoney(value, numberOfDecimals)
+    return currencySymbol + formattedValue;
   }
 }
 

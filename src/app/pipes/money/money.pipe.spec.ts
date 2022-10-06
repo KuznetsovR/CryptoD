@@ -18,6 +18,6 @@ describe('MoneyPipe', () => {
   it('should format to money view with 1 decimal and euro symbol', () => {
     const pipe = new MoneyPipe();
     const resultInEuro = pipe.transform(1999.99, 1, '€')
-    expect(resultInEuro).toBe('€2000.0');
+    expect(resultInEuro).toBe('€2 000.0');
   })
 });

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TotalRoutingModule } from './total-routing.module';
 import { TotalComponent } from './total.component';
 import {NavMenuModule} from "../../modules/nav-menu/nav-menu.module";
+import {MoneyPipeModule} from "../../pipes/money/money.pipe";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {NavMenuModule} from "../../modules/nav-menu/nav-menu.module";
   imports: [
     CommonModule,
     TotalRoutingModule,
-    NavMenuModule
+    NavMenuModule,
+    MoneyPipeModule
   ]
 })
 export class TotalModule { }
