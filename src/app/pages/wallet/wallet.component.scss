@@ -1,0 +1,11 @@
+@import "src/variables";
+.page-container {
+  max-width: $content-max-width;
+  margin: $page-top-margin auto 0;
+}
+.page {
+  margin: 0 $page-horizontal-margin;
+}
+.wallet-info {
+  margin-top: 15px;
+}

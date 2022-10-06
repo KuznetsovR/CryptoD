@@ -1,18 +1,19 @@
-<div class="page">
-  <app-nav-menu></app-nav-menu>
-  <div class="content-container">
-    <div class="import-wallet-container">
-      <app-button (click)="importWallet()" class="mr-10">+ Import wallet</app-button>
-      <input type="text" [(ngModel)]="walletAddressToImport" />
+<div class="page-container">
+  <div class="page">
+    <app-nav-menu></app-nav-menu>
+    <div class="content-container">
+      <div class="import-wallet-container">
+        <app-button (click)="importWallet()" class="mr-10">+ Import wallet</app-button>
+        <input type="text" [(ngModel)]="walletAddressToImport" />
+      </div>
+      <ul class="wallets-list">
+        <ng-container *ngFor="let wallet of wallets">
+          <ng-container *ngTemplateOutlet="walletListItem; context: { $implicit: wallet }"></ng-container>
+        </ng-container>
+      </ul>
     </div>
-    <ul class="wallets-list">
-      <ng-container *ngFor="let wallet of wallets">
-        <ng-container *ngTemplateOutlet="walletListItem; context: { $implicit: wallet }"></ng-container>
-      </ng-container>
-    </ul>
   </div>
 </div>
-
 <ng-template #walletListItem let-wallet>
   <li class="wallet" [routerLink]="wallet.address">
     <div class="wallet__total-balance">
